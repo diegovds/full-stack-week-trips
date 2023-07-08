@@ -1,9 +1,9 @@
 "use client";
 
-import Button from "../../../components/Button";
-import CurrencyInput from "../CurrencyInput";
-import DataPicker from "../DataPicker";
-import Input from "../Input";
+import Button from "@/components/Button";
+import CurrencyInput from "@/components/CurrencyInput";
+import DataPicker from "@/components/DataPicker";
+import Input from "@/components/Input";
 
 const TripSearch = () => {
   return (
