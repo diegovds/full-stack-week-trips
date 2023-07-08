@@ -1,5 +1,11 @@
+import TripSearch from "./components/TripSearch";
+
 const Home = () => {
-  return <div>Olá</div>;
+  return (
+    <div className="">
+      <TripSearch />
+    </div>
+  );
 };
 
 export default Home;
