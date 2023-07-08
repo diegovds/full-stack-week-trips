@@ -1,5 +1,3 @@
-"use client";
-
 import ptBR from "date-fns/locale/pt-BR";
 import { LegacyRef, forwardRef } from "react";
 import _DatePicker, {

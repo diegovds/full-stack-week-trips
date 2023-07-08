@@ -1,6 +1,6 @@
 "use client";
 
-import Button from "../Button";
+import Button from "../../../components/Button";
 import CurrencyInput from "../CurrencyInput";
 import DataPicker from "../DataPicker";
 import Input from "../Input";
