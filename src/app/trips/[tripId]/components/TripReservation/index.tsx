@@ -11,6 +11,7 @@ type TripReservationProps = {
   tripEndDate: Date;
   maxGuests: number;
   pricePerDay: number;
+  tripId: string;
 };
 
 type TripReservationForm = {
@@ -20,6 +21,7 @@ type TripReservationForm = {
 };
 
 const TripReservation = ({
+  tripId,
   tripStartDate,
   tripEndDate,
   maxGuests,
@@ -33,7 +35,21 @@ const TripReservation = ({
     watch,
   } = useForm<TripReservationForm>();
 
-  const onSubmit = (data: any) => {
+  const onSubmit = async (d: TripReservationForm) => {
+    const res = await fetch("/api/trips/check", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        startDate: d.startDate,
+        endDate: d.endDate,
+        tripId,
+      }),
+    });
+
+    const data = await res.json();
+
     console.log(data);
   };
 
