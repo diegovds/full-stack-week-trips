@@ -5,8 +5,8 @@ import { z } from "zod";
 
 const bodySchema = z.object({
   tripId: z.string().uuid(),
-  startDate: z.string(),
-  endDate: z.string(),
+  startDate: z.string().datetime(),
+  endDate: z.string().datetime(),
 });
 
 export async function POST(request: Request) {
