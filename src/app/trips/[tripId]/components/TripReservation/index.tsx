@@ -37,13 +37,18 @@ const TripReservation = ({
   } = useForm<TripReservationForm>();
 
   const onSubmit = async (d: TripReservationForm) => {
-    const res = await axios.post("/api/trips/check", {
-      startDate: d.startDate,
-      endDate: d.endDate,
-      tripId,
-    });
+    let data;
 
-    const data = res.data;
+    await axios
+      .post("/api/trips/check", {
+        startDate: d.startDate,
+        endDate: d.endDate,
+        tripId,
+      })
+      .then((res) => (data = res.data))
+      .catch((error) => {
+        data = error.message;
+      });
 
     console.log(data);
   };
