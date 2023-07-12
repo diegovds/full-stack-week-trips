@@ -3,6 +3,7 @@
 import Button from "@/components/Button";
 import DataPicker from "@/components/DataPicker";
 import Input from "@/components/Input";
+import axios from "axios";
 import { differenceInDays } from "date-fns";
 import { Controller, useForm } from "react-hook-form";
 
@@ -36,19 +37,13 @@ const TripReservation = ({
   } = useForm<TripReservationForm>();
 
   const onSubmit = async (d: TripReservationForm) => {
-    const res = await fetch("/api/trips/check", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        startDate: d.startDate,
-        endDate: d.endDate,
-        tripId,
-      }),
+    const res = await axios.post("/api/trips/check", {
+      startDate: d.startDate,
+      endDate: d.endDate,
+      tripId,
     });
 
-    const data = await res.json();
+    const data = res.data;
 
     console.log(data);
   };
