@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import { differenceInDays, isBefore } from "date-fns";
+import { differenceInDays, isBefore, isEqual } from "date-fns";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
@@ -12,6 +12,19 @@ const bodySchema = z.object({
 export async function POST(request: Request) {
   const body = await request.json();
   const { tripId, startDate, endDate } = bodySchema.parse(body);
+
+  if (isEqual(new Date(startDate), new Date(endDate))) {
+    return new NextResponse(
+      JSON.stringify({
+        error: {
+          code: "INVALID_EQUAL_DATE",
+        },
+      }),
+      {
+        status: 400,
+      }
+    );
+  }
 
   const trip = await prisma.trip.findUnique({
     where: {
