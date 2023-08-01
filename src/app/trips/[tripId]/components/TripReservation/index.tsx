@@ -5,6 +5,7 @@ import DataPicker from "@/components/DataPicker";
 import Input from "@/components/Input";
 import axios from "axios";
 import { differenceInDays } from "date-fns";
+import { useRouter } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
 
 type TripReservationProps = {
@@ -37,13 +38,20 @@ const TripReservation = ({
     setError,
   } = useForm<TripReservationForm>();
 
+  const router = useRouter();
+
   const onSubmit = async (d: TripReservationForm) => {
-    const response = await axios
+    await axios
       .post("/api/trips/check", {
         startDate: d.startDate,
         endDate: d.endDate,
         tripId,
       })
+      .then(() =>
+        router.push(
+          `/trips/${tripId}/confirmation?startDate=${d.startDate?.toISOString()}&endDate=${d.endDate?.toISOString()}&guests=${maxGuests}`
+        )
+      )
       .catch((error) => {
         if (error.response.data.error.code === "TRIP_ALREADY_RESERVED") {
           if (error) {
