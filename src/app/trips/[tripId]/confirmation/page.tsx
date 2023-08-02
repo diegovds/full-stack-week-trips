@@ -38,8 +38,10 @@ const TripConfirmation = ({ params: { tripId } }: TripProps) => {
           setTrip(res.data.trip);
           setTotalPrice(res.data.totalPrice);
         })
-        .catch(() => {
-          console.log("Erro ao buscar trip");
+        .catch((err) => {
+          if (err.response.data.error.code === "INVALID_START_DATE") {
+            router.push("/");
+          }
         });
     };
 
