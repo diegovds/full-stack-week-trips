@@ -10,6 +10,7 @@ import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import ReactCountryFlag from "react-country-flag";
+import { toast } from "react-toastify";
 
 type TripProps = {
   params: {
@@ -24,7 +25,7 @@ const TripConfirmation = ({ params: { tripId } }: TripProps) => {
 
   const router = useRouter();
 
-  const { status } = useSession();
+  const { status, data } = useSession();
 
   useEffect(() => {
     const getTrip = async () => {
@@ -55,6 +56,30 @@ const TripConfirmation = ({ params: { tripId } }: TripProps) => {
   const startDate = new Date(searchParams.get("startDate") as string);
   const endDate = new Date(searchParams.get("endDate") as string);
   const guests = searchParams.get("guests");
+
+  const handleBuyClick = async () => {
+    await axios
+      .post("/api/trips/reservation", {
+        userId: (data?.user as any)?.id,
+        tripId,
+        startDate: searchParams.get("startDate"),
+        endDate: searchParams.get("endDate"),
+        guests: Number(guests),
+        totalPaid: totalPrice,
+      })
+      .then((res) => {
+        router.push("/");
+
+        toast.success("Reserva realizada com sucesso!", {
+          position: "bottom-center",
+        });
+      })
+      .catch((err) => {
+        toast.error("Ocorreu um erro ao realizar a reserva!", {
+          position: "bottom-center",
+        });
+      });
+  };
 
   return (
     <div className="container mx-auto p-5">
@@ -108,7 +133,9 @@ const TripConfirmation = ({ params: { tripId } }: TripProps) => {
         <h3 className="font-semibold mt-5">Hóspedes</h3>
         <p>{guests} hóspedes</p>
 
-        <Button className="mt-5">Finalizar Compra</Button>
+        <Button className="mt-5" onClick={handleBuyClick}>
+          Finalizar Compra
+        </Button>
       </div>
     </div>
   );
