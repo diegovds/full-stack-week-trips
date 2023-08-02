@@ -5,8 +5,9 @@ import { Trip } from "@prisma/client";
 import axios from "axios";
 import { format } from "date-fns";
 import ptBr from "date-fns/locale/pt-BR";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import ReactCountryFlag from "react-country-flag";
 
@@ -18,8 +19,12 @@ type TripProps = {
 
 const TripConfirmation = ({ params: { tripId } }: TripProps) => {
   const [trip, setTrip] = useState<Trip | null>();
-  const [totalPrice, setTotalPrice] = useState();
+  const [totalPrice, setTotalPrice] = useState<number>(0);
   const searchParams = useSearchParams();
+
+  const router = useRouter();
+
+  const { status } = useSession();
 
   useEffect(() => {
     const getTrip = async () => {
@@ -38,8 +43,12 @@ const TripConfirmation = ({ params: { tripId } }: TripProps) => {
         });
     };
 
+    if (status === "unauthenticated") {
+      router.push("/");
+    }
+
     getTrip();
-  }, [tripId, searchParams]);
+  }, [tripId, searchParams, router, status]);
 
   const startDate = new Date(searchParams.get("startDate") as string);
   const endDate = new Date(searchParams.get("endDate") as string);
