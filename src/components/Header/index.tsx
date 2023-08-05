@@ -52,9 +52,15 @@ const Header = () => {
           />
 
           {menuIsOpen && (
-            <div className="z-50 absolute top-14 left-0 w-full h-full bg-white rounded-lg shadow-md flex flex-col justify-center items-center">
+            <div className="z-50 absolute top-14 left-0 w-full h-[100px] bg-white rounded-lg shadow-md flex flex-col justify-center items-center">
+              <Link href="/my-trips">
+                <button className="text-primary pb-2 border-b border-grayLighter border-solid text-sm font-semibold">
+                  Minhas viagens
+                </button>
+              </Link>
+
               <button
-                className="text-primary text-sm font-semibold"
+                className="text-primary pt-2 text-sm font-semibold"
                 onClick={handleLogoutClick}
               >
                 Sair
