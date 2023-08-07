@@ -1,5 +1,7 @@
+import Button from "@/components/Button";
 import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import UserReservationItem from "./components/UserReservationItem";
@@ -25,9 +27,20 @@ const MyTrips = async () => {
       <h1 className="font-semibold text-primaryDarker text-xl">
         Minhas viagens
       </h1>
-      {userTrips.map((userTrip) => (
-        <UserReservationItem key={userTrip.id} reservation={userTrip} />
-      ))}
+      {userTrips.length > 0 ? (
+        userTrips.map((userTrip) => (
+          <UserReservationItem key={userTrip.id} reservation={userTrip} />
+        ))
+      ) : (
+        <div className="flex flex-col">
+          <p className="font-medium text-primaryDarker mt-2">
+            Você não tem nenhuma reserva ! ☹️
+          </p>
+          <Link href="/">
+            <Button className="w-full mt-2">Fazer reserva</Button>
+          </Link>
+        </div>
+      )}
     </div>
   );
 };

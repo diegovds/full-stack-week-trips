@@ -1,9 +1,9 @@
-import Button from "@/components/Button";
 import { Prisma } from "@prisma/client";
 import { format } from "date-fns";
 import ptBr from "date-fns/locale/pt-BR";
 import Image from "next/image";
 import ReactCountryFlag from "react-country-flag";
+import CancelButton from "../CancelButton";
 
 type UserReservationItemProps = {
   reservation: Prisma.TripReservationGetPayload<{
@@ -69,9 +69,7 @@ const UserReservationItem = ({
             </p>
           </div>
 
-          <Button variant="danger" className="mt-5">
-            Cancelar
-          </Button>
+          <CancelButton reservationId={reservation.id} />
         </div>
       </div>
     </div>
