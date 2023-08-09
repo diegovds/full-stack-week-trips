@@ -1,3 +1,4 @@
+import Link from "next/link";
 import SearchIcon from "../SearchIcon";
 
 const QuickSearch = () => {
@@ -12,10 +13,18 @@ const QuickSearch = () => {
       </div>
 
       <div className="flex w-full justify-between mt-5">
-        <SearchIcon image="/hotel-icon.png" text="Hotel" />
-        <SearchIcon image="/farm-icon.png" text="Fazenda" />
-        <SearchIcon image="/cottage-icon.png" text="Chalé" />
-        <SearchIcon image="/inn-icon.png" text="Pousada" />
+        <Link href={`/trips/search?text=hotel`}>
+          <SearchIcon image="/hotel-icon.png" text="Hotel" />
+        </Link>
+        <Link href={`/trips/search?text=fazenda`}>
+          <SearchIcon image="/farm-icon.png" text="Fazenda" />
+        </Link>
+        <Link href={`/trips/search?text=chalé`}>
+          <SearchIcon image="/cottage-icon.png" text="Chalé" />
+        </Link>
+        <Link href={`/trips/search?text=pousada`}>
+          <SearchIcon image="/inn-icon.png" text="Pousada" />
+        </Link>
       </div>
     </div>
   );
