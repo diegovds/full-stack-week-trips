@@ -2,6 +2,7 @@
 
 import Button from "@/components/Button";
 import { Trip } from "@prisma/client";
+import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
 import { format } from "date-fns";
 import ptBr from "date-fns/locale/pt-BR";
@@ -59,16 +60,26 @@ const TripConfirmation = ({ params: { tripId } }: TripProps) => {
 
   const handleBuyClick = async () => {
     await axios
-      .post("/api/trips/reservation", {
-        userId: (data?.user as any)?.id,
+      .post("/api/payment", {
         tripId,
         startDate: searchParams.get("startDate"),
         endDate: searchParams.get("endDate"),
         guests: Number(guests),
-        totalPaid: totalPrice,
+        totalPrice,
+        coverImage: trip?.coverImage,
+        name: trip?.name,
+        description: trip?.description,
       })
-      .then((res) => {
-        router.push("/");
+      .then(async (res) => {
+        //router.push("/");
+
+        const { sessionId } = res.data;
+
+        const stripe = await loadStripe(
+          process.env.NEXT_PUBLIC_STRIPE_KEY as string
+        );
+
+        await stripe?.redirectToCheckout({ sessionId });
 
         toast.success("Reserva realizada com sucesso!", {
           position: "bottom-center",
