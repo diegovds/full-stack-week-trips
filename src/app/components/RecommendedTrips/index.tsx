@@ -30,3 +30,5 @@ const RecommendedTrips = async () => {
 };
 
 export default RecommendedTrips;
+
+export const revalidate = 0;
