@@ -82,7 +82,7 @@ const TripSearch = () => {
           />
         </div>
 
-        <Button className="w-1/2" disabled={isSubmitting}>
+        <Button className="w-1/2 lg:h-fit" disabled={isSubmitting}>
           Buscar
         </Button>
       </div>
