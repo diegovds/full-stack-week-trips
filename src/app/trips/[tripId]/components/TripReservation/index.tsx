@@ -91,7 +91,14 @@ const TripReservation = ({
   const endDate = watch("endDate");
 
   return (
-    <form className="flex flex-col px-5" onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className="flex flex-col px-5 lg:min-w-[380px] lg:p-5 lg:border-grayLighter lg:border lg:rounded-lg lg:shadow-md"
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <p className="text-xl hidden text-primaryDarker mb-4 lg:block">
+        <span className="font-semibold">R${pricePerDay}</span> por dia
+      </p>
+
       <div className="flex gap-3">
         <Controller
           name="startDate"
@@ -167,7 +174,7 @@ const TripReservation = ({
         </p>
       </div>
 
-      <div className="pb-10 border-b border-b-grayLighter w-full">
+      <div className="pb-10 border-b border-b-grayLighter w-full lg:border-none lg:pb-0">
         <Button disabled={isSubmitting} className="mt-3 w-full">
           Reservar agora
         </Button>
