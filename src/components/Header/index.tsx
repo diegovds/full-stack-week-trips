@@ -20,7 +20,7 @@ const Header = () => {
   const handleMenuClick = () => setMenuIsOpen(!menuIsOpen);
 
   return (
-    <div className="container mx-auto px-5 py-0 h-[93px] flex justify-between items-center">
+    <div className="container mx-auto px-5 py-0 h-[93px] flex justify-between items-center lg:border-b lg:border-grayLighter">
       <Link href="/">
         <div className="relative h-[32px] w-[182px]">
           <Image src="/logo.png" alt="Full Stack Week logo." fill />
