@@ -77,6 +77,7 @@ const TripSearch = () => {
                 onValueChange={field.onChange as any}
                 value={field.value}
                 onBlur={field.onBlur}
+                className="w-full"
               />
             )}
           />
