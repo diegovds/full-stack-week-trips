@@ -24,13 +24,15 @@ const MyTrips = async () => {
 
   return (
     <div className="container mx-auto p-5">
-      <h1 className="font-semibold text-primaryDarker text-xl">
+      <h1 className="font-semibold text-primaryDarker text-xl lg:mb-5">
         Minhas viagens
       </h1>
       {userTrips.length > 0 ? (
-        userTrips.map((userTrip) => (
-          <UserReservationItem key={userTrip.id} reservation={userTrip} />
-        ))
+        <div className="flex flex-col lg:grid lg:grid-cols-3 lg:gap-14">
+          {userTrips.map((userTrip) => (
+            <UserReservationItem key={userTrip.id} reservation={userTrip} />
+          ))}
+        </div>
       ) : (
         <div className="flex flex-col">
           <p className="font-medium text-primaryDarker mt-2">
