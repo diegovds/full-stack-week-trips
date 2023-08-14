@@ -9,7 +9,7 @@ const SearchIcon = ({ image, text }: SearchIconProps) => {
   return (
     <div className="flex flex-col items-center gap-1">
       <Image src={image} alt={text} width={35} height={35} />
-      <p className="text-sm text-grayPrimary">{text}</p>
+      <p className="text-sm lg:text-base text-grayPrimary">{text}</p>
     </div>
   );
 };
